@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>แบบประเมินผลรายวิชา 640-394 ปฏิบัติการพยาบาลเด็ก - คณะพยาบาลศาสตร์ ม.อ.</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2224%22>🩺</text></svg>">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-emblem" aria-hidden="true">🩺</div>
+        <div class="brand-text">
+          <h1>แบบประเมินผลรายวิชา 640-394 ปฏิบัติการพยาบาลเด็ก</h1>
+          <p>คณะพยาบาลศาสตร์ มหาวิทยาลัยสงขลานครินทร์</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="activeRoundBadge" class="badge-round">ภาคการศึกษา 2/2569</span>
+        <a href="/login" class="admin-link-btn" title="เข้าสู่ระบบสำหรับอาจารย์ผู้ประสานงาน">
+          <span>สำหรับผู้ประสานงาน</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Evaluation Container -->
+  <main class="main-wrapper">
+
+    <!-- Evaluation Closed Banner (Shown if no active round) -->
+    <div id="closedNotice" class="instruction-banner" style="display: none; background: #fef2f2; border-color: #ef4444; color: #991b1b;">
+      <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">⚠️ ระบบปิดรับแบบประเมินในขณะนี้</h3>
+      <p>ขณะนี้ยังไม่มีรอบการประเมินที่เปิดรับคำตอบ หรือรอบการประเมินได้ปิดรับแล้ว หากมีข้อสงสัยโปรดติดต่ออาจารย์ผู้ประสานงานรายวิชา 640-394</p>
+    </div>
+
+    <!-- Stepper & Progress Tracker -->
+    <div id="stepperCard" class="stepper-card">
+      <div class="stepper-header">
+        <span id="stepperTitle" class="stepper-title">ขั้นตอนที่ 1 จาก 8: ข้อมูลเริ่มต้น</span>
+        <span id="stepperPercent" class="stepper-percent">12%</span>
+      </div>
+      <div class="progress-track">
+        <div id="progressBar" class="progress-fill" style="width: 12.5%;"></div>
+      </div>
+      <div class="step-indicator-list">
+        <div class="step-dot-item active" data-step="1"><div class="step-dot">1</div><span>ข้อมูลต้น</span></div>
+        <div class="step-dot-item" data-step="2"><div class="step-dot">2</div><span>4.1 เตรียม</span></div>
+        <div class="step-dot-item" data-step="3"><div class="step-dot">3</div><span>4.2 ปฐมวัย</span></div>
+        <div class="step-dot-item" data-step="4"><div class="step-dot">4</div><span>4.3 หอผู้ป่วย</span></div>
+        <div class="step-dot-item" data-step="5"><div class="step-dot">5</div><span>4.4-4.5</span></div>
+        <div class="step-dot-item" data-step="6"><div class="step-dot">6</div><span>4.6 OSPE</span></div>
+        <div class="step-dot-item" data-step="7"><div class="step-dot">7</div><span>4.7 ภาพรวม</span></div>
+        <div class="step-dot-item" data-step="8"><div class="step-dot">8</div><span>ตรวจทาน</span></div>
+      </div>
+    </div>
+
+    <!-- Instruction Callout (Sticky criteria reminder) -->
+    <section class="instruction-banner">
+      <strong>คำชี้แจง:</strong> โปรดประเมินการจัดการเรียนการสอนตามประสบการณ์จริงของนักศึกษา ข้อมูลจะนำไปใช้ปรับปรุงรายวิชา หากนักศึกษาให้คะแนนน้อยกว่าหรือเท่ากับ 3 คะแนน กรุณาระบุข้อคิดเห็นหรือข้อเสนอแนะในข้อนั้น เพื่อให้สามารถนำข้อมูลไปพัฒนาได้อย่างตรงประเด็น หากไม่มีประสบการณ์เรียนรู้หรือไม่ได้เข้าร่วมกิจกรรมในหัวข้อนั้น ให้เลือก N/A
+      <div class="instruction-callout">
+        🔒 <strong>ความเป็นส่วนตัว:</strong> แบบประเมินนี้ไม่เก็บชื่อ รหัสนักศึกษา อีเมล หรือเบอร์โทรศัพท์ คำตอบของนักศึกษาจะถูกประมวลผลเป็นภาพรวมโดยไม่ระบุตัวตน
+      </div>
+    </section>
+
+    <!-- FORM STEP CONTAINERS -->
+    <form id="evaluationForm" novalidate onsubmit="return false;">
+
+      <!-- ==========================================
+           STEP 1: TERM & SECTION SELECTION (Mandatory)
+      =========================================== -->
+      <div id="step-1" class="step-container active">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">ข้อมูลเริ่มต้น</span>
+            <h2 class="section-title">เลือกภาคการศึกษา/ปีการศึกษา และ Section</h2>
+            <p class="section-desc">กรุณากดเลือกปีการศึกษาและ Section ของนักศึกษาให้ถูกต้องก่อนเริ่มทำแบบประเมิน</p>
+          </div>
+
+          <!-- 1.1 Academic Term Selection (Button Choices) -->
+          <div class="question-card" id="card-term">
+            <div class="question-header">
+              <label class="question-text">1. เลือกภาคการศึกษา/ปีการศึกษา <span style="color: #ef4444;">*</span></label>
+              <p class="question-subtext">กดเลือกภาคการศึกษาและปีการศึกษาที่นักศึกษาลงทะเบียนเรียน</p>
+            </div>
+            
+            <div class="term-choice-grid" id="termChoiceGrid">
+              <!-- Dynamically populated or rendered default buttons -->
+              <label class="term-radio-label selected" id="term-label-2-2569">
+                <input type="radio" name="studentTerm" value="2/2569" checked>
+                <span class="term-val">2/2569</span>
+                <span class="term-sub">ภาค 2/2569</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-1-2570">
+                <input type="radio" name="studentTerm" value="1/2570">
+                <span class="term-val">1/2570</span>
+                <span class="term-sub">ภาค 1/2570</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-2-2570">
+                <input type="radio" name="studentTerm" value="2/2570">
+                <span class="term-val">2/2570</span>
+                <span class="term-sub">ภาค 2/2570</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-1-2571">
+                <input type="radio" name="studentTerm" value="1/2571">
+                <span class="term-val">1/2571</span>
+                <span class="term-sub">ภาค 1/2571</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-2-2571">
+                <input type="radio" name="studentTerm" value="2/2571">
+                <span class="term-val">2/2571</span>
+                <span class="term-sub">ภาค 2/2571</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-1-2572">
+                <input type="radio" name="studentTerm" value="1/2572">
+                <span class="term-val">1/2572</span>
+                <span class="term-sub">ภาค 1/2572</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-2-2572">
+                <input type="radio" name="studentTerm" value="2/2572">
+                <span class="term-val">2/2572</span>
+                <span class="term-sub">ภาค 2/2572</span>
+              </label>
+
+              <label class="term-radio-label" id="term-label-1-2573">
+                <input type="radio" name="studentTerm" value="1/2573">
+                <span class="term-val">1/2573</span>
+                <span class="term-sub">ภาค 1/2573</span>
+              </label>
+            </div>
+
+            <div class="item-error-message" id="err-studentTerm">
+              <span>⚠️ กรุณาเลือกภาคการศึกษาและปีการศึกษาก่อนดำเนินการต่อไป</span>
+            </div>
+          </div>
+
+          <!-- 1.2 Section Selection (Button Choices) -->
+          <div class="question-card" id="card-section" style="margin-top: 1.5rem;">
+            <div class="question-header">
+              <label class="question-text">2. เลือก Section ของนักศึกษา <span style="color: #ef4444;">*</span></label>
+              <p class="question-subtext">กดเลือก Section ที่นักศึกษาสังกัด (เลือกได้เพียง 1 ตัวเลือก)</p>
+            </div>
+            
+            <div class="section-choice-grid">
+              <label class="section-radio-label" id="sec-label-Sec 01">
+                <input type="radio" name="studentSection" value="Sec 01">
+                <span class="sec-name">Sec 01</span>
+                <span class="sec-sub">กลุ่มเรียน 01</span>
+              </label>
+
+              <label class="section-radio-label" id="sec-label-Sec 02">
+                <input type="radio" name="studentSection" value="Sec 02">
+                <span class="sec-name">Sec 02</span>
+                <span class="sec-sub">กลุ่มเรียน 02</span>
+              </label>
+
+              <label class="section-radio-label" id="sec-label-Sec 03">
+                <input type="radio" name="studentSection" value="Sec 03">
+                <span class="sec-name">Sec 03</span>
+                <span class="sec-sub">กลุ่มเรียน 03</span>
+              </label>
+
+              <label class="section-radio-label" id="sec-label-Sec 04">
+                <input type="radio" name="studentSection" value="Sec 04">
+                <span class="sec-name">Sec 04</span>
+                <span class="sec-sub">กลุ่มเรียน 04</span>
+              </label>
+            </div>
+
+            <div class="item-error-message" id="err-studentSection">
+              <span>⚠️ กรุณาเลือก Section ก่อนดำเนินการต่อไป</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 2: 4.1 การเตรียมความพร้อมในการปฏิบัติการพยาบาลเด็ก
+      =========================================== -->
+      <div id="step-2" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">หมวด 4.1</span>
+            <h2 class="section-title">4.1 การเตรียมความพร้อมในการปฏิบัติการพยาบาลเด็ก</h2>
+            <p class="section-desc">การสอบทักษะทางการพยาบาลเด็กในสัปดาห์ที่ 1 และการสอนทางคลินิก (Clinical teaching) 3 ฐาน</p>
+          </div>
+
+          <!-- 4.1.1 การสอบทักษะทางการพยาบาลเด็กในสัปดาห์ที่ 1 -->
+          <div class="question-card" id="card-SEC_4_1_1_SKILLS_W1">
+            <div class="question-header">
+              <span class="question-num-tag">4.1.1</span>
+              <p class="question-text">ความเหมาะสมของการสอบทักษะทางการพยาบาลเด็กในสัปดาห์ที่ 1 เพื่อเตรียมความพร้อมก่อนขึ้นฝึกปฏิบัติ <span style="color: #ef4444;">*</span></p>
+            </div>
+            <!-- Dynamic Rating Container -->
+            <div class="rating-container" data-qcode="SEC_4_1_1_SKILLS_W1"></div>
+          </div>
+
+          <!-- 4.1.2 การสอนทางคลินิก (Clinical teaching) 3 ฐาน -->
+          <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--primary-navy); margin: 1.5rem 0 0.85rem;">
+            4.1.2 การสอนทางคลินิก (Clinical teaching) ในวันศุกร์ช่วงบ่ายของสัปดาห์ที่ 1 (3 ฐาน 9 ข้อ)
+          </h3>
+
+          <!-- ฐาน ก. CPR ทารกแรกเกิด -->
+          <div class="station-subcard">
+            <div class="station-title">
+              <span>🩺</span>
+              <h4>ฐาน ก. CPR ทารกแรกเกิด</h4>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_NEO_BRIEF">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ก. - ข้อ 1</span>
+                <p class="question-text">ความเหมาะสมของการทบทวนก่อนฝึกปฏิบัติ (Brief) <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_NEO_BRIEF"></div>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_NEO_TIME">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ก. - ข้อ 2</span>
+                <p class="question-text">ความเหมาะสมของระยะเวลาที่ฝึกปฏิบัติในฐาน <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_NEO_TIME"></div>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_NEO_EQUIP">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ก. - ข้อ 3</span>
+                <p class="question-text">ความเพียงพอและความพร้อมของอุปกรณ์ที่ใช้ฝึกปฏิบัติ <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_NEO_EQUIP"></div>
+            </div>
+          </div>
+
+          <!-- ฐาน ข. CPR เด็กเล็กและเด็กโต -->
+          <div class="station-subcard">
+            <div class="station-title">
+              <span>🩺</span>
+              <h4>ฐาน ข. CPR เด็กเล็กและเด็กโต</h4>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_CHILD_BRIEF">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ข. - ข้อ 1</span>
+                <p class="question-text">ความเหมาะสมของการทบทวนก่อนฝึกปฏิบัติ (Brief) <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_CHILD_BRIEF"></div>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_CHILD_TIME">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ข. - ข้อ 2</span>
+                <p class="question-text">ความเหมาะสมของระยะเวลาที่ฝึกปฏิบัติในฐาน <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_CHILD_TIME"></div>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_CHILD_EQUIP">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ข. - ข้อ 3</span>
+                <p class="question-text">ความเพียงพอและความพร้อมของอุปกรณ์ที่ใช้ฝึกปฏิบัติ <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_CHILD_EQUIP"></div>
+            </div>
+          </div>
+
+          <!-- ฐาน ค. Choking -->
+          <div class="station-subcard">
+            <div class="station-title">
+              <span>🩺</span>
+              <h4>ฐาน ค. การช่วยเหลือเด็กที่มีสิ่งแปลกปลอมอุดกั้นทางเดินหายใจ (Choking)</h4>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_CHOKE_BRIEF">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ค. - ข้อ 1</span>
+                <p class="question-text">ความเหมาะสมของการทบทวนก่อนฝึกปฏิบัติ (Brief) <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_CHOKE_BRIEF"></div>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_CHOKE_TIME">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ค. - ข้อ 2</span>
+                <p class="question-text">ความเหมาะสมของระยะเวลาที่ฝึกปฏิบัติในฐาน <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_CHOKE_TIME"></div>
+            </div>
+
+            <div class="question-card" id="card-SEC_4_1_2_CHOKE_EQUIP">
+              <div class="question-header">
+                <span class="question-num-tag">ฐาน ค. - ข้อ 3</span>
+                <p class="question-text">ความเพียงพอและความพร้อมของอุปกรณ์ที่ใช้ฝึกปฏิบัติ <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_1_2_CHOKE_EQUIP"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 3: 4.2 ประสบการณ์ฝ่ายพัฒนาเด็กปฐมวัย
+      =========================================== -->
+      <div id="step-3" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">หมวด 4.2</span>
+            <h2 class="section-title">4.2 ประสบการณ์ที่ได้รับจากการขึ้นฝึกปฏิบัติ ณ ฝ่ายพัฒนาเด็กปฐมวัย คณะพยาบาลศาสตร์</h2>
+            <p class="section-desc">คัดกรองการขึ้นฝึกปฏิบัติ ณ ฝ่ายพัฒนาเด็กปฐมวัยในรายวิชานี้</p>
+          </div>
+
+          <!-- Screening question -->
+          <div class="question-card" id="card-screening-ec">
+            <div class="question-header">
+              <p class="question-text">นักศึกษาได้ขึ้นฝึกปฏิบัติ ณ ฝ่ายพัฒนาเด็กปฐมวัยในรายวิชานี้หรือไม่ <span style="color: #ef4444;">*</span></p>
+            </div>
+            
+            <div class="screening-choice-wrap">
+              <button type="button" class="screening-btn" id="btn-ec-trained" data-val="trained">
+                ✅ ได้ขึ้นฝึก
+              </button>
+              <button type="button" class="screening-btn" id="btn-ec-nottrained" data-val="not_trained">
+                ❌ ไม่ได้ขึ้นฝึก
+              </button>
+            </div>
+
+            <div class="item-error-message" id="err-earlyChildhoodScreening">
+              <span>⚠️ กรุณาระบุว่านักศึกษาได้ขึ้นฝึก ณ ฝ่ายพัฒนาเด็กปฐมวัยหรือไม่</span>
+            </div>
+          </div>
+
+          <!-- Conditional Evaluation Item for Early Childhood (Shown only if trained) -->
+          <div id="ec-evaluation-block" style="display: none;">
+            <div class="question-card" id="card-SEC_4_2_EXP">
+              <div class="question-header">
+                <span class="question-num-tag">4.2</span>
+                <p class="question-text">ความเหมาะสมของประสบการณ์การเรียนรู้ที่ได้รับจากการขึ้นฝึกปฏิบัติ ณ ฝ่ายพัฒนาเด็กปฐมวัย <span style="color: #ef4444;">*</span></p>
+              </div>
+              <div class="rating-container" data-qcode="SEC_4_2_EXP"></div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-header">
+                <span class="question-num-tag">ข้อเสนอแนะ</span>
+                <p class="question-text">ข้อเสนอแนะเพิ่มเติมเกี่ยวกับการฝึก ณ ฝ่ายพัฒนาเด็กปฐมวัย <span style="color: #64748b; font-size: 0.82rem;">(ไม่บังคับ)</span></p>
+              </div>
+              <textarea id="earlyChildhoodExtraSuggestion" class="comment-textarea" placeholder="ระบุข้อเสนอแนะเพิ่มเติมสำหรับการฝึก ณ ฝ่ายพัฒนาเด็กปฐมวัย..."></textarea>
+            </div>
+          </div>
+
+          <!-- Notice if skipped -->
+          <div id="ec-skipped-block" style="display: none;" class="instruction-banner">
+            ℹ️ นักศึกษาระบุว่า <strong>ไม่ได้ขึ้นฝึก</strong> ณ ฝ่ายพัฒนาเด็กปฐมวัย ระบบจะข้ามข้อประเมินส่วนนี้และบันทึกสถานะว่าไม่ได้ขึ้นฝึก
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 4: 4.3 ประสบการณ์บนหอผู้ป่วย (Quick Jump To Evaluate)
+      =========================================== -->
+      <div id="step-4" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">หมวด 4.3</span>
+            <h2 class="section-title">4.3 ประสบการณ์ที่ได้รับจากการขึ้นฝึกปฏิบัติบนหอผู้ป่วย</h2>
+            <p class="section-desc">กดเลือกหอผู้ป่วยที่นักศึกษาขึ้นฝึกปฏิบัติจริงเพื่อกระโดดไปทำแบบประเมินหอนั้นทันที</p>
+          </div>
+
+          <!-- Quick Jump Navigation Panel -->
+          <div class="ward-jump-panel" id="wardJumpPanel">
+            <div class="ward-jump-title">
+              <span>🚀</span>
+              <span>กดเลือกหอผู้ป่วยเพื่อกระโดดไปประเมินทันที (ประเมินได้หลายหอผู้ป่วย):</span>
+            </div>
+
+            <!-- โรงพยาบาลสงขลานครินทร์ (รพ.มอ.) -->
+            <div class="ward-jump-group">
+              <div class="ward-jump-group-label">
+                <span>🏥</span>
+                <strong>โรงพยาบาลสงขลานครินทร์ (รพ.มอ.)</strong>
+              </div>
+              <div class="ward-jump-btns-wrap">
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_PED1">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยเด็ก 1 (มอ1)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_PED2">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยเด็ก 2 (มอ2)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_NMCU">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยเด็กแรกเกิด (NMCU)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_SURG">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยศัลยกรรมเด็ก (ศด)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_NICU">
+                  <span class="status-dot"></span> <span>หออภิบาลทารกแรกเกิด (NICU)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_PMCU">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยเด็กกึ่งวิกฤต (PMCU)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_PSU_PICU">
+                  <span class="status-dot"></span> <span>หออภิบาลผู้ป่วยเด็ก (PICU)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- โรงพยาบาลหาดใหญ่ -->
+            <div class="ward-jump-group">
+              <div class="ward-jump-group-label">
+                <span>🏥</span>
+                <strong>โรงพยาบาลหาดใหญ่</strong>
+              </div>
+              <div class="ward-jump-btns-wrap">
+                <button type="button" class="ward-jump-btn" data-ward="WARD_HY_PED1">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยกุมารเวชกรรมเด็ก 1 (ด110)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_HY_PED2">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยกุมารเวชกรรมเด็ก 2 (ด120)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_HY_NM">
+                  <span class="status-dot"></span> <span>หอผู้ป่วยกึ่งวิกฤตทารกแรกเกิด (NM)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_HY_NICU">
+                  <span class="status-dot"></span> <span>หอผู้ป่วย NICU</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_HY_PICU">
+                  <span class="status-dot"></span> <span>หอผู้ป่วย PICU</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- โรงพยาบาลสงขลา -->
+            <div class="ward-jump-group">
+              <div class="ward-jump-group-label">
+                <span>🏥</span>
+                <strong>โรงพยาบาลสงขลา</strong>
+              </div>
+              <div class="ward-jump-btns-wrap">
+                <button type="button" class="ward-jump-btn" data-ward="WARD_SK_NICU">
+                  <span class="status-dot"></span> <span>หออภิบาลผู้ป่วยวิกฤตทารกแรกเกิด (NICU)</span>
+                </button>
+                <button type="button" class="ward-jump-btn" data-ward="WARD_SK_PICU">
+                  <span class="status-dot"></span> <span>หออภิบาลผู้ป่วยเด็กวิกฤต (PICU)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ตัวเลือกพิเศษ: ไม่ได้ขึ้นฝึกบนหอผู้ป่วย -->
+            <div style="margin-top: 1rem; padding-top: 0.85rem; border-top: 1px dashed #cbd5e1;">
+              <button type="button" class="ward-jump-btn" id="btn-jump-none" data-ward="WARD_NONE" style="background: #fffbeb; border-color: #fde68a; color: #92400e;">
+                <span class="status-dot" style="background: #d97706;"></span>
+                <span>❌ ไม่ได้ขึ้นฝึกบนหอผู้ป่วย (ข้ามการประเมินหอผู้ป่วยทั้งหมด)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="item-error-message" id="err-wardSelection" style="margin-bottom: 1rem;">
+            <span>⚠️ กรุณากดเลือกหอผู้ป่วยที่นักศึกษาได้ขึ้นฝึกอย่างน้อย 1 หอผู้ป่วย หรือเลือก "ไม่ได้ขึ้นฝึกบนหอผู้ป่วย"</span>
+          </div>
+
+          <!-- Dynamic Evaluation Cards for Selected Wards (Rendered below and jumped to) -->
+          <div id="dynamic-wards-eval-container">
+            <div id="ward-empty-hint" style="text-align: center; padding: 2rem; color: var(--text-muted); background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: var(--radius-md);">
+              👆 กรุณากดปุ่มชื่อหอผู้ป่วยด้านบนเพื่อเริ่มการประเมินหอผู้ป่วยนั้น
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 5: 4.4 การเล่นบนหอผู้ป่วย & 4.5 กรณีเลือกสรร
+      =========================================== -->
+      <div id="step-5" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">หมวด 4.4 & 4.5</span>
+            <h2 class="section-title">4.4 การจัดกิจกรรมการเล่นบนหอผู้ป่วย และ 4.5 การอภิปรายกรณีเลือกสรร</h2>
+            <p class="section-desc">โปรดประเมินความเหมาะสมของการจัดกิจกรรมการเล่น และการอภิปรายกรณีเลือกสรร</p>
+          </div>
+
+          <!-- 4.4 การจัดกิจกรรมการเล่นบนหอผู้ป่วย -->
+          <div class="question-card" id="card-SEC_4_4_PLAY_ACTIVITY">
+            <div class="question-header">
+              <span class="question-num-tag">4.4</span>
+              <p class="question-text">ความเหมาะสมโดยรวมของการจัดกิจกรรมการเล่นบนหอผู้ป่วย <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_4_PLAY_ACTIVITY"></div>
+          </div>
+
+          <!-- 4.5 การอภิปรายกรณีเลือกสรร -->
+          <div class="question-card" id="card-SEC_4_5_SELECTED_CASE" style="margin-top: 1.5rem;">
+            <div class="question-header">
+              <span class="question-num-tag">4.5</span>
+              <p class="question-text">ความเหมาะสมโดยรวมของการอภิปรายกรณีเลือกสรรในวันแรกของสัปดาห์ที่ 8 <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_5_SELECTED_CASE"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 6: 4.6 การสอบลงกอง (OSPE) (7 ข้อ)
+      =========================================== -->
+      <div id="step-6" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">หมวด 4.6</span>
+            <h2 class="section-title">4.6 การสอบลงกอง (OSPE)</h2>
+            <p class="section-desc">ประเมินความเหมาะสมของทักษะการสอบ ข้อเขียน และระยะเวลาสอบ OSPE (รวม 7 ข้อ)</p>
+          </div>
+
+          <!-- ข้อ 1 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_1_NEB">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 1</span>
+              <p class="question-text">ความเหมาะสมของทักษะการพ่นยาที่ใช้สอบลงกอง <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_1_NEB"></div>
+          </div>
+
+          <!-- ข้อ 2 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_2_SUCTION">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 2</span>
+              <p class="question-text">ความเหมาะสมของทักษะการดูดเสมหะ (Suction) ที่ใช้สอบลงกอง <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_2_SUCTION"></div>
+          </div>
+
+          <!-- ข้อ 3 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_3_IV">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 3</span>
+              <p class="question-text">ความเหมาะสมของทักษะการให้ยาฉีดทางหลอดเลือดดำที่ใช้สอบลงกอง <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_3_IV"></div>
+          </div>
+
+          <!-- ข้อ 4 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_4_NG">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 4</span>
+              <p class="question-text">ความเหมาะสมของทักษะการใส่สายให้อาหารทางจมูก (NG) ที่ใช้สอบลงกอง <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_4_NG"></div>
+          </div>
+
+          <!-- ข้อ 5 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_5_WRITTEN">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 5</span>
+              <p class="question-text">ความเหมาะสมของจำนวนข้อสอบข้อเขียนทั้งหมด 10 ข้อ <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_5_WRITTEN"></div>
+          </div>
+
+          <!-- ข้อ 6 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_6_TIME">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 6</span>
+              <p class="question-text">ความเหมาะสมของระยะเวลาสอบทักษะ 7 นาทีต่อฐาน <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_6_TIME"></div>
+          </div>
+
+          <!-- ข้อ 7 -->
+          <div class="question-card" id="card-SEC_4_6_OSPE_7_OVERALL">
+            <div class="question-header">
+              <span class="question-num-tag">4.6 - ข้อ 7</span>
+              <p class="question-text">ความพึงพอใจโดยรวมต่อการสอบ OSPE <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_6_OSPE_7_OVERALL"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 7: 4.7 ความพึงพอใจในภาพรวมของรายวิชา
+      =========================================== -->
+      <div id="step-7" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">หมวด 4.7</span>
+            <h2 class="section-title">4.7 ความพึงพอใจในภาพรวมของการจัดการเรียนการสอนของรายวิชา</h2>
+            <p class="section-desc">ความพึงพอใจในภาพรวม และข้อคิดเห็นปลายเปิดเพื่อการพัฒนารายวิชา</p>
+          </div>
+
+          <!-- ข้อประเมินความพึงพอใจภาพรวม -->
+          <div class="question-card" id="card-SEC_4_7_OVERALL_SATISFACTION">
+            <div class="question-header">
+              <span class="question-num-tag">4.7</span>
+              <p class="question-text">ความพึงพอใจในภาพรวมของการจัดการเรียนการสอนรายวิชา 640-394 ปฏิบัติการพยาบาลเด็ก <span style="color: #ef4444;">*</span></p>
+            </div>
+            <div class="rating-container" data-qcode="SEC_4_7_OVERALL_SATISFACTION"></div>
+          </div>
+
+          <!-- คำถามปลายเปิด: สิ่งที่ประทับใจ -->
+          <div class="question-card" style="margin-top: 1.5rem;">
+            <div class="question-header">
+              <span class="question-num-tag">คำถามปลายเปิด</span>
+              <p class="question-text">สิ่งที่นักศึกษาประทับใจหรือเห็นว่าควรคงไว้ในรายวิชานี้ <span style="color: #64748b; font-size: 0.82rem;">(ไม่บังคับ)</span></p>
+            </div>
+            <textarea id="impressionsToKeep" class="comment-textarea" style="min-height: 80px;" placeholder="ระบุสิ่งที่ประทับใจ หรือสิ่งที่ควรคงไว้ในการจัดรายวิชานี้..."></textarea>
+          </div>
+
+          <!-- คำถามปลายเปิด: สิ่งที่ควรปรับปรุง -->
+          <div class="question-card" style="margin-top: 1.5rem;">
+            <div class="question-header">
+              <span class="question-num-tag">คำถามปลายเปิด</span>
+              <p class="question-text">สิ่งที่ควรปรับปรุงและข้อเสนอแนะสำหรับการจัดการเรียนการสอนครั้งต่อไป <span style="color: #64748b; font-size: 0.82rem;">(ไม่บังคับ)</span></p>
+            </div>
+            <textarea id="improvementsAndSuggestions" class="comment-textarea" style="min-height: 80px;" placeholder="ระบุสิ่งที่ควรปรับปรุง หรือข้อเสนอแนะสำหรับอาจารย์ผู้สอนและทีมรายวิชา..."></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 8: ตรวจทานคำตอบก่อนส่ง (Review Step)
+      =========================================== -->
+      <div id="step-8" class="step-container">
+        <div class="section-card">
+          <div class="section-title-wrap">
+            <span class="section-code-pill">ขั้นตอนสุดท้าย</span>
+            <h2 class="section-title">ตรวจทานข้อมูลการประเมิน</h2>
+            <p class="section-desc">กรุณาตรวจสอบข้อมูลปีการศึกษา, Section, แหล่งฝึก, คะแนน, และข้อคิดเห็นทั้งหมดก่อนกดยืนยันการส่ง</p>
+          </div>
+
+          <!-- Review Summary Containers -->
+          <div id="reviewSummaryContent">
+            <!-- Dynamically populated review content -->
+          </div>
+
+          <!-- Error Alert if Submit Fails -->
+          <div id="submitErrorAlert" class="instruction-banner" style="display: none; background: #fef2f2; border-color: #ef4444; color: #991b1b; margin-top: 1.5rem;">
+            <strong>เกิดข้อผิดพลาดในการบันทึก:</strong> <span id="submitErrorMessage"></span>
+            <p style="margin-top: 0.35rem; font-size: 0.82rem;">ข้อมูลที่นักศึกษากรอกยังคงอยู่ครบถ้วน นักศึกษาสามารถกดยืนยันส่งใหม่อีกครั้งได้ทันที</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           STEP 9: THANK YOU SUCCESS SCREEN
+      =========================================== -->
+      <div id="step-thankyou" class="step-container">
+        <div class="thank-you-card">
+          <div class="thank-you-icon">✓</div>
+          <h2 class="thank-you-title">บันทึกผลการประเมินสำเร็จ</h2>
+          <p class="thank-you-msg">
+            “บันทึกผลประเมินเรียบร้อยแล้ว ขอบคุณสำหรับข้อคิดเห็นและข้อเสนอแนะของนักศึกษา ซึ่งจะนำไปใช้พัฒนาการจัดการเรียนการสอนรายวิชา 640-394 ปฏิบัติการพยาบาลเด็กต่อไป”
+          </p>
+          <div class="submission-token-display">
+            รหัสอ้างอิงการส่ง (Submission Token):<br>
+            <strong id="displaySubmissionToken">-</strong>
+          </div>
+          <div>
+            <button type="button" class="nav-btn btn-primary" onclick="window.location.reload();">
+              ทำแบบประเมินใหม่
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP NAVIGATION BAR -->
+      <div class="navigation-bar" id="navigationBar">
+        <button type="button" id="btnPrev" class="nav-btn btn-secondary" disabled>
+          ← ย้อนกลับ
+        </button>
+
+        <div style="font-size: 0.85rem; color: var(--text-muted);" id="stepProgressText">
+          หน้า 1 จาก 8
+        </div>
+
+        <button type="button" id="btnNext" class="nav-btn btn-primary">
+          ถัดไป →
+        </button>
+
+        <button type="button" id="btnSubmit" class="nav-btn btn-success" style="display: none;">
+          <span id="submitBtnText">✓ ยืนยันการส่งแบบประเมิน</span>
+          <span id="submitBtnSpinner" class="spinner" style="display: none;"></span>
+        </button>
+      </div>
+
+    </form>
+
+  </main>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

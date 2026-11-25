@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แผงควบคุมและสรุปผลรายวิชา 640-394 ปฏิบัติการพยาบาลเด็ก</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2224%22>📊</text></svg>">
+  <!-- Chart.js CDN for interactive charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    .admin-sub-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .badge-test-data {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body style="background-color: #f1f5f9;">
+
+  <!-- Admin Top Navigation -->
+  <nav class="admin-navbar">
+    <div class="admin-nav-brand">
+      <span>🩺</span>
+      <span>ระบบสรุปผลรายวิชา 640-394 คณะพยาบาลศาสตร์ ม.อ.</span>
+    </div>
+    <div class="admin-nav-user">
+      <span id="adminNameDisplay">ผู้ประสานงานรายวิชา</span>
+      <a href="/" target="_blank" class="admin-link-btn" title="เปิดหน้าแบบประเมินนักศึกษา">
+        <span>🔗 หน้าประเมิน นศ.</span>
+      </a>
+      <button type="button" id="btnLogout" class="admin-link-btn" style="cursor: pointer; border: none;">
+        <span>ออกจากระบบ 🚪</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Filter & Actions Bar -->
+  <div class="admin-sub-bar">
+    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+      <!-- Round selector -->
+      <div style="display: flex; align-items: center; gap: 0.4rem;">
+        <label for="roundSelect" style="font-size: 0.85rem; font-weight: 600; color: var(--primary-navy);">รอบประเมิน:</label>
+        <select id="roundSelect" class="form-control" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.88rem; font-weight: 600; color: var(--primary-navy);">
+          <option value="">กำลังโหลดรอบประเมิน...</option>
+        </select>
+        <button type="button" id="btnToggleRoundStatus" class="nav-btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+          <span id="roundStatusIndicator">สถานะ: -</span>
+        </button>
+      </div>
+
+      <!-- Section filter -->
+      <div style="display: flex; align-items: center; gap: 0.4rem;">
+        <label for="sectionFilter" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Section:</label>
+        <select id="sectionFilter" class="form-control" style="width: auto; padding: 0.4rem 0.65rem; font-size: 0.85rem;">
+          <option value="">ทั้งหมด (Sec 01–04)</option>
+          <option value="Sec 01">Sec 01</option>
+          <option value="Sec 02">Sec 02</option>
+          <option value="Sec 03">Sec 03</option>
+          <option value="Sec 04">Sec 04</option>
+        </select>
+      </div>
+
+      <!-- Data type filter (Real vs Test) -->
+      <div style="display: flex; align-items: center; gap: 0.4rem;">
+        <label for="dataTypeFilter" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">แหล่งข้อมูล:</label>
+        <select id="dataTypeFilter" class="form-control" style="width: auto; padding: 0.4rem 0.65rem; font-size: 0.85rem;">
+          <option value="real">ข้อมูลจริงเท่านั้น (Real Data)</option>
+          <option value="test">ข้อมูลทดสอบจำลอง (Test Data)</option>
+          <option value="all">รวมทั้งหมด (Real + Test)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Export & Tools Buttons -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button type="button" id="btnExportExcel" class="nav-btn btn-success" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
+        📊 ส่งออก Excel (.xlsx)
+      </button>
+      <button type="button" id="btnExportCSV" class="nav-btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
+        📄 ส่งออก CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Admin Container -->
+  <div class="admin-container">
+
+    <!-- KPI Overview Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card" style="border-left: 4px solid var(--primary-navy);">
+        <div class="kpi-title">ผู้ตอบแบบประเมินทั้งหมด</div>
+        <div class="kpi-val" id="kpiTotal">0</div>
+        <div class="kpi-sub" id="kpiTotalSub">ในรอบการประเมินนี้</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Sec 01</div>
+        <div class="kpi-val" id="kpiSec1">0</div>
+        <div class="kpi-sub" id="kpiSec1Pct">0% ของผู้ตอบทั้งหมด</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Sec 02</div>
+        <div class="kpi-val" id="kpiSec2">0</div>
+        <div class="kpi-sub" id="kpiSec2Pct">0% ของผู้ตอบทั้งหมด</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Sec 03</div>
+        <div class="kpi-val" id="kpiSec3">0</div>
+        <div class="kpi-sub" id="kpiSec3Pct">0% ของผู้ตอบทั้งหมด</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Sec 04</div>
+        <div class="kpi-val" id="kpiSec4">0</div>
+        <div class="kpi-sub" id="kpiSec4Pct">0% ของผู้ตอบทั้งหมด</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-nav">
+      <button type="button" class="tab-btn active" data-tab="tab-summary">
+        📋 สรุปผลการประเมินรายข้อ (4.1–4.7)
+      </button>
+      <button type="button" class="tab-btn" data-tab="tab-charts">
+        📈 กราฟและการเปรียบเทียบ Section
+      </button>
+      <button type="button" class="tab-btn" data-tab="tab-comments">
+        💬 ข้อคิดเห็นและข้อเสนอแนะ (<span id="commentsCountBadge">0</span>)
+      </button>
+      <button type="button" class="tab-btn" data-tab="tab-settings">
+        ⚙️ จัดการรอบประเมินและข้อมูล
+      </button>
+    </div>
+
+    <!-- TAB 1: SUMMARY TABLE (Strictly conforming to calculation rules) -->
+    <div id="tab-summary" class="tab-pane active">
+      <div style="background: #ffffff; border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem; border: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          📌 <strong>หมายเหตุการคำนวณ:</strong> ค่าเฉลี่ยคำนวณจากคะแนน 1–5 เท่านั้น (ไม่รวม N/A) | ร้อยละของคะแนนแต่ละระดับและร้อยละของคะแนน 1–3 คำนวณโดยใช้จำนวนผู้ตอบคะแนน 1–5 ในข้อนั้นเป็นตัวหาร | ไม่คำนวณค่าเฉลี่ยรวมข้ามหอผู้ป่วยหรือข้ามหมวดโดยอัตโนมัติเนื่องจากประสบการณ์ฝึกต่างกัน
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="searchItemInput" class="form-control" style="width: 220px; padding: 0.35rem 0.65rem; font-size: 0.82rem;" placeholder="ค้นหาข้อประเมิน...">
+        </div>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table" id="summaryTable">
+          <thead>
+            <tr>
+              <th style="min-width: 60px;">หมวด</th>
+              <th style="min-width: 260px;">ข้อประเมินและประเด็น</th>
+              <th style="text-align: center; min-width: 80px;">N (1-5)</th>
+              <th style="text-align: center; min-width: 90px;">ค่าเฉลี่ย</th>
+              <th style="text-align: center; min-width: 80px;">S.D.</th>
+              <th style="text-align: center; min-width: 65px;">5 (%)</th>
+              <th style="text-align: center; min-width: 65px;">4 (%)</th>
+              <th style="text-align: center; min-width: 65px;">3 (%)</th>
+              <th style="text-align: center; min-width: 65px;">2 (%)</th>
+              <th style="text-align: center; min-width: 65px;">1 (%)</th>
+              <th style="text-align: center; min-width: 70px;">N/A</th>
+              <th style="text-align: center; min-width: 85px;">คะแนน 1-3</th>
+              <th style="text-align: center; min-width: 90px;">ข้อคิดเห็น</th>
+            </tr>
+          </thead>
+          <tbody id="summaryTableBody">
+            <tr>
+              <td colspan="13" style="text-align: center; padding: 2rem; color: var(--text-light);">
+                กำลังโหลดข้อมูลสรุป...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: CHARTS & COMPARISONS -->
+    <div id="tab-charts" class="tab-pane">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+        
+        <!-- Score distribution chart -->
+        <div class="section-card" style="margin-bottom: 0;">
+          <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--primary-navy); margin-bottom: 1rem;">
+            📊 การกระจายระดับคะแนนทุกข้อประเมิน
+          </h3>
+          <div style="height: 320px;">
+            <canvas id="scoreDistributionChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Section comparison chart -->
+        <div class="section-card" style="margin-bottom: 0;">
+          <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--primary-navy); margin-bottom: 1rem;">
+            📈 เปรียบเทียบค่าเฉลี่ยรายข้อระหว่าง Section (Sec 01–04)
+          </h3>
+          <div style="height: 320px;">
+            <canvas id="sectionComparisonChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- OSPE Breakdown Comparison -->
+      <div class="section-card">
+        <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--primary-navy); margin-bottom: 1rem;">
+          🩺 เปรียบเทียบผลการประเมินทักษะสอบลงกอง (OSPE 7 ข้อ)
+        </h3>
+        <div style="height: 280px;">
+          <canvas id="ospeChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: COMMENTS EXPLORER -->
+    <div id="tab-comments" class="tab-pane">
+      <div class="filter-bar-card" style="margin-bottom: 1rem;">
+        <div class="filter-item">
+          <label style="font-weight: 600;">กรองหมวด:</label>
+          <select id="commentSectionFilter" class="form-control" style="width: auto; padding: 0.35rem 0.65rem;">
+            <option value="">ทุกหมวดหัวข้อ (4.1–4.7)</option>
+            <option value="4.1">4.1 การเตรียมความพร้อม & Clinical teaching</option>
+            <option value="4.2">4.2 ฝ่ายพัฒนาเด็กปฐมวัย</option>
+            <option value="4.3">4.3 ประสบการณ์บนหอผู้ป่วย</option>
+            <option value="4.4">4.4 กิจกรรมการเล่นบนหอผู้ป่วย</option>
+            <option value="4.5">4.5 การอภิปรายกรณีเลือกสรร</option>
+            <option value="4.6">4.6 การสอบลงกอง (OSPE)</option>
+            <option value="4.7">4.7 ความพึงพอใจภาพรวม & ปลายเปิด</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="commentsListContainer" style="display: grid; gap: 0.85rem;">
+        <div style="text-align: center; padding: 2rem; color: var(--text-muted); background: #ffffff; border-radius: var(--radius-md);">
+          กำลังโหลดข้อคิดเห็น...
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: SETTINGS & ROUND MANAGEMENT -->
+    <div id="tab-settings" class="tab-pane">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem;">
+        
+        <!-- Create New Evaluation Round -->
+        <div class="section-card" style="margin-bottom: 0;">
+          <div class="section-title-wrap">
+            <h3 class="section-title" style="font-size: 1.15rem;">➕ สร้างรอบการประเมินใหม่</h3>
+            <p class="section-desc">กำหนดภาคการศึกษา ปีการศึกษา และสถานะเปิด-ปิดรับแบบประเมิน</p>
+          </div>
+
+          <form id="newRoundForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">ปีการศึกษา (พ.ศ.) *</label>
+                <input type="number" id="newRoundYear" class="form-control" placeholder="เช่น 2568" required min="2500" max="2600">
+              </div>
+              <div class="form-group">
+                <label class="form-label">ภาคการศึกษา *</label>
+                <select id="newRoundSem" class="form-control" required>
+                  <option value="1">ภาคการศึกษาที่ 1</option>
+                  <option value="2">ภาคการศึกษาที่ 2</option>
+                  <option value="3">ภาคฤดูร้อน</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ชื่อรอบการประเมิน (ระบุหรือไม่ระบุก็ได้)</label>
+              <input type="text" id="newRoundTitle" class="form-control" placeholder="เช่น ภาคการศึกษาที่ 1 ปีการศึกษา 2568">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">สถานะเริ่มต้น</label>
+              <select id="newRoundStatus" class="form-control">
+                <option value="open">เปิดรับแบบประเมิน (Open)</option>
+                <option value="closed">ปิดรับแบบประเมิน (Closed)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">เวอร์ชันของแบบประเมิน</label>
+              <select id="newRoundVersion" class="form-control">
+                <option value="v2">เวอร์ชันปัจจุบัน v2 (รวมข้อ 4.4 และ 4.5)</option>
+                <option value="v1">เวอร์ชันเดิม v1 (ก่อนมีข้อ 4.4 และ 4.5)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">หมายเหตุเพิ่มเติม</label>
+              <textarea id="newRoundNotes" class="form-control" style="min-height: 50px;" placeholder="บันทึกช่วยจำสำหรับรอบนี้..."></textarea>
+            </div>
+
+            <button type="submit" id="btnCreateRound" class="nav-btn btn-primary" style="width: 100%;">
+              บันทึกรอบการประเมินใหม่
+            </button>
+          </form>
+        </div>
+
+        <!-- Simulated Test Data & Security -->
+        <div class="section-card" style="margin-bottom: 0;">
+          <div class="section-title-wrap">
+            <h3 class="section-title" style="font-size: 1.15rem;">🧪 ข้อมูลทดสอบจำลอง (Sandbox)</h3>
+            <p class="section-desc">สร้างหรือล้างข้อมูลทดสอบจำลองเพื่อทดสอบระบบ โดยแยกขาดจากข้อมูลจริงด้วยธง is_test_data</p>
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;">
+              ระบบแยก <strong>ข้อมูลจริง</strong> และ <strong>ข้อมูลทดสอบ</strong> ไว้อย่างชัดเจน ท่านสามารถสร้างข้อมูลจำลองเพื่อดูรายงาน สถิติ และการกระจายคะแนนได้ทันที และลบทิ้งได้ทุกเมื่อโดยไม่กระทบข้อมูลจริง
+            </p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button type="button" id="btnGenTestData" class="nav-btn btn-secondary" style="font-size: 0.85rem;">
+                🎲 สร้างข้อมูลทดสอบ 36 รายการ
+              </button>
+              <button type="button" id="btnClearTestData" class="nav-btn btn-secondary" style="font-size: 0.85rem; color: #ef4444; border-color: #fecaca;">
+                🗑️ ลบข้อมูลทดสอบในรอบนี้
+              </button>
+            </div>
+          </div>
+
+          <!-- Change Password -->
+          <div class="section-title-wrap" style="margin-top: 1.5rem;">
+            <h3 class="section-title" style="font-size: 1.15rem;">🔒 เปลี่ยนรหัสผ่านผู้ดูแลระบบ</h3>
+          </div>
+
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label class="form-label">รหัสผ่านเดิม</label>
+              <input type="password" id="currentPassword" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">รหัสผ่านใหม่ (อย่างน้อย 6 ตัวอักษร)</label>
+              <input type="password" id="newPassword" class="form-control" required minlength="6">
+            </div>
+            <button type="submit" id="btnChangePassword" class="nav-btn btn-primary" style="width: 100%;">
+              บันทึกรหัสผ่านใหม่
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

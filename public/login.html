@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เข้าสู่ระบบผู้ประสานงานรายวิชา 640-394 ปฏิบัติการพยาบาลเด็ก</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2224%22>🔐</text></svg>">
+  <style>
+    .login-container {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .login-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      padding: 2.25rem 2rem;
+      width: 100%;
+      max-width: 440px;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .login-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--light-blue-bg);
+      color: var(--primary-navy);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin: 0 auto 1rem;
+    }
+    .login-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+    }
+    .login-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .error-alert {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-emblem" aria-hidden="true">🩺</div>
+        <div class="brand-text">
+          <h1>ระบบประเมินผลรายวิชา 640-394 ปฏิบัติการพยาบาลเด็ก</h1>
+          <p>คณะพยาบาลศาสตร์ มหาวิทยาลัยสงขลานครินทร์</p>
+        </div>
+      </div>
+      <div>
+        <a href="/" class="admin-link-btn">
+          <span>← กลับหน้านักศึกษา</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">🔐</div>
+        <h2 class="login-title">เข้าสู่ระบบผู้ประสานงาน</h2>
+        <p class="login-sub">สำหรับอาจารย์ผู้ประสานงานรายวิชา 640-394</p>
+      </div>
+
+      <div id="errorAlert" class="error-alert"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="username">ชื่อผู้ใช้ (Username)</label>
+          <input type="text" id="username" class="form-control" placeholder="admin" required autocomplete="username">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label" for="password">รหัสผ่าน (Password)</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btnLogin" class="nav-btn btn-primary" style="width: 100%;">
+          <span id="btnText">เข้าสู่ระบบ</span>
+          <span id="btnSpinner" class="spinner" style="display: none;"></span>
+        </button>
+      </form>
+
+      <div style="margin-top: 1.75rem; text-align: center; font-size: 0.8rem; color: var(--text-light); border-top: 1px dashed #e2e8f0; padding-top: 1rem;">
+        ระบบรักษาความปลอดภัยเซิร์ฟเวอร์ | อนุญาตเฉพาะผู้ประสานงานรายวิชา
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const errorAlert = document.getElementById('errorAlert');
+    const btnLogin = document.getElementById('btnLogin');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorAlert.style.display = 'none';
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!username || !password) {
+        errorAlert.textContent = 'กรุณากรอกชื่อผู้ใช้และรหัสผ่านให้ครบถ้วน';
+        errorAlert.style.display = 'block';
+        return;
+      }
+
+      btnLogin.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'inline-block';
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          window.location.href = '/admin';
+        } else {
+          errorAlert.textContent = data.error || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+          errorAlert.style.display = 'block';
+          btnLogin.disabled = false;
+          btnText.style.display = 'inline';
+          btnSpinner.style.display = 'none';
+        }
+      } catch (err) {
+        errorAlert.textContent = 'ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง';
+        errorAlert.style.display = 'block';
+        btnLogin.disabled = false;
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
